@@ -1,17 +1,17 @@
 {
+	"type": "module",
 	"dependencies": {
 		"canvas": "^3.2.3",
 		"discord-api-types": "^0.38.41",
 		"discord.js": "^14.25.1",
-		"dotenv": "^17.2.1",
-		"html-minifier-next": "^6.1.2",
+		"dotenv": "^17.4.2",
+		"html-minifier-next": "^6.2.11",
 		"mariadb": "^3.4.5",
-		"source-map-support": "^0.5.21",
-		"vitest": "^4.0.18"
+		"source-map-support": "^0.5.21"
 	},
 	"scripts": {
-		"check": "echo \"Checking for errors ...\" && tsgo --noEmit",
-		"build": "echo \"Checking for errors ...\" && tsgo --noEmit && echo \"Deleting old data ...\" && rm -rf build && echo \"Compiling scripts ...\" && tsgo -b",
+		"check": "echo \"Running linter...\" && eslint . && echo \"Checking for errors ...\" && tsgo --noEmit",
+		"build": "echo \"Running linter...\" && eslint . && echo \"Checking for errors ...\" && tsgo --noEmit && echo \"Deleting old data ...\" && rm -rf build && echo \"Compiling scripts ...\" && tsgo -b",
 		"start": "node build/index.js",
 		"linecount": "find . -type f -name '*.ts' -not -path './node_modules/*' -exec wc -l {} + | sort -n -r | head -n 10",
 		"test": "vitest run",
@@ -19,7 +19,14 @@
 		"db-setup": "node build/DatabaseSetup.js"
 	},
 	"devDependencies": {
+		"@eslint/core": "^1.2.1",
+		"@eslint/js": "^10.0.1",
 		"@types/node": "^25.3.5",
-		"@typescript/native-preview": "^7.0.0-dev.20260615.1"
+		"@typescript/native-preview": "^7.0.0-dev.20260615.1",
+		"eslint": "^10.8.1",
+		"eslint-plugin-unicorn": "^73.0.0",
+		"jiti": "^2.7.0",
+		"typescript-eslint": "^8.67.0",
+		"vitest": "^4.1.10"
 	}
 }

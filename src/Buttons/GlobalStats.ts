@@ -1,15 +1,15 @@
-import {ButtonHandler} from "../Typings/HandlerTypes";
-import {COLOR, SECONDS} from "../Utils/Constants";
-import {Database} from "../Database";
+import {ButtonHandler} from "../Typings/HandlerTypes.js";
+import {COLOR, SECONDS} from "../Utils/Constants.js";
+import {Database} from "../Database.js";
 import {APIEmbed} from "discord-api-types/v10";
-import { Asset, SimpleMessage } from "../Typings/DatabaseTypes";
+import { Asset, SimpleMessage } from "../Typings/DatabaseTypes.js";
 
 const STAT_SIZE = 10_000;
 
 function FileSize(bytes: number): string {
 	if (bytes < 1024) return `${bytes} byte(s)`;
 
-	const units = ['KB', 'MB', 'GB', 'TB', 'TB'];
+	const units = ['KB', 'MB', 'GB'];
 	let size = bytes / 1024;
 	let unitIndex = 0;
 
@@ -23,7 +23,7 @@ function FileSize(bytes: number): string {
 
 let lastOutput = {};
 let lastRun = 0;
-async function CalcuateMessageStats(): Promise<APIEmbed> {
+async function CalculateMessageStats(): Promise<APIEmbed> {
 	// only compute every 30 minutes
 	if (Date.now() - lastRun < SECONDS.MINUTE * 1000 * 30) {
 		return lastOutput;
@@ -123,7 +123,7 @@ export default {
 	customID      : 'global-stats',
 	execute       : async function() {
 		console.time('Calculating stats');
-		const stats = await CalcuateMessageStats();
+		const stats = await CalculateMessageStats();
 		console.timeEnd('Calculating stats');
 
 		return {
